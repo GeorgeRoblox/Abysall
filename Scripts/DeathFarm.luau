@@ -13,7 +13,7 @@ local Services = setmetatable({}, {
 
 local QueueTeleport = queue_on_teleport or queueonteleport
 local TeleportCode = [==[
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/bocaj111004/Abysall/refs/heads/main/Scripts/DeathFarm.luau"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/GeorgeRoblox/Abysall/refs/heads/main/Scripts/DeathFarm.luau"))()
 ]==]
 
 local LocalPlayer = Services.Players.LocalPlayer
@@ -177,7 +177,19 @@ else
 end
 
 LocalPlayer:GetAttributeChangedSignal("Alive"):Wait()
-SendCaption("Player has died, joining a new run...")
-
+local HasReviveAndIsDead = false
+if game.Players.LocalPlayer.PlayerGui.TopbarUI.Topbar.Revives.Text ~= "0" then
+    HasReviveAndIsDead = true
+end
+if HasReviveAndIsDead == true then
+SendCaption("Player has died, Reviving.....")
+Services.ReplicatedStorage:FindFirstChild("RemotesFolder").Revive:FireServer()
+task.wait(1)
+SendCaption("Player has died after reviving, joining a new run...")
 RemotesFolder.PlayAgain:FireServer()
 QueueTeleport(TeleportCode)
+else
+SendCaption("Player has died, joining a new run...")
+RemotesFolder.PlayAgain:FireServer()
+QueueTeleport(TeleportCode)
+end
