@@ -4,7 +4,7 @@ end
 
 print("Abysall Hub death farm for DOORS, created by FireBacon (bocaj111004)")
 print("dsc.gg/abysallhub")
-
+print("this is a fork all credits goes to bocaj111004")
 local Services = setmetatable({}, {
 	__index = function(self, Key)
 		return game:GetService(Key)
